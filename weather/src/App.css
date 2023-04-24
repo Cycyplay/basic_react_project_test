@@ -36,3 +36,42 @@
     transform: rotate(360deg);
   }
 }
+
+.Header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #00ABE4;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  height: 60px;
+  margin-bottom: 20px;
+}
+
+.Weather {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #E9F1FA;
+  border-radius: 10px;
+  padding: 30px;
+  margin: auto;
+  max-width: 600px;
+}
+
+.Weather h2 {
+  font-size: 36px;
+  text-align: center;
+}
+
+.Weather img {
+  width: 80px;
+  height: 80px;
+}
+
+.Weather p {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 10px;
+}
