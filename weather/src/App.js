@@ -33,16 +33,21 @@ function App() {
     }
     // le but de l'exercice est d'afficher la météo du jour en fonction des coordonées GPS récuperées au dessus. 
 
+    const capitalizeWord = (word) => {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    }
+
     return (
         <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Météo
-                </p>
+            <header className="Header">
+                <p>Test Quos - Météo</p>
             </header>
             { weatherData &&
                 <div className="Weather">
+                    <h2>{weatherData.name}, {weatherData.sys.country}</h2>
+                    <img src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`}></img>
+                    <p>{capitalizeWord(weatherData.weather[0].description)}</p>
+                    <p>{weatherData.main.temp}°C</p>
                 </div>
             }
         </div>
