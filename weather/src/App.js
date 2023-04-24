@@ -7,11 +7,13 @@ const WEATHER_API_KEY = "10e295f3e3f3b5cdde7ea86fc5c6d5b2";
 function App() {
     const [lat, setLat] = useState(10);
     const [lon, setLon] = useState(40);
+    const [weatherData, setWeatherData] = useState(null);
     useEffect(() => {
         if ("geolocation" in navigator) {
             navigator.geolocation.watchPosition(function (position) {
                 setLat(position.coords.latitude);
                 setLon(position.coords.longitude);
+                getWeather(lat, lon);
             });
         } else {
             /* la géolocalisation n'est pas disponible */
@@ -19,8 +21,15 @@ function App() {
     }, [])
 
 
-    const getWeather = (lat, lon) => {
-        // votre code
+    const getWeather = async (lat, lon) => {
+        const apiCallUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric&lang=fr`;
+        try{
+            const apiResponse = await axios.get(apiCallUrl);
+            
+            setWeatherData(apiResponse.data);
+        } catch(error){
+            console.error(error);
+        }
     }
     // le but de l'exercice est d'afficher la météo du jour en fonction des coordonées GPS récuperées au dessus. 
 
@@ -29,17 +38,13 @@ function App() {
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
                 <p>
-                    Edit <code>src/App.js</code> and save to reload.
+                    Météo
                 </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
             </header>
+            { weatherData &&
+                <div className="Weather">
+                </div>
+            }
         </div>
     );
 }
